@@ -62,6 +62,19 @@ case $yn in
   [Nn]* ) exit 1;;
   * ) exit 1;;
 esac
+
+# Clean snap first!
+LANG=en_US.UTF-8 snap list --all | awk '/disabled/{print $1, $3}' |
+while read pkg revision; do
+  sudo snap remove "$pkg" --revision="$revision"
+done
+
+# Clean journal
+journalctl --vacuum-size=100M
+
+# Cleanup old packages
+sudo apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y
+
 # We have a semi-qualified filepath
 # -a, --archive   archive mode; equals -rlptgoD (no -H,-A,-X)
 # -c              use checksum, not time and date
@@ -73,6 +86,7 @@ sudo rsync -acvxAP --info=progress,stats2 --delete-before --numeric-ids \
 --exclude={"/dev/","/proc/","/sys/","/tmp/","/run/","/mnt/","/media/*","/lost+found","/home/xcvd/rundata"} \
  / $FULL_BACKUP_FILENAME
 
+sudo tar -zcvf $FULL_BACKUP_FILENAME.tar.gz $FULL_BACKUP_FILENAME
 
 
 
