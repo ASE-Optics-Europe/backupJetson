@@ -58,7 +58,7 @@ case $yn in
 esac
 # We have a semi-qualified filepath
 sudo rsync -acvxAP --info=progress,stats2 --delete-before --numeric-ids \
---exclude={"/dev/","/proc/","/sys/","/tmp/","/run/","/mnt/","/media/*","/lost+found"} \
+--exclude={"/dev/","/proc/","/sys/","/tmp/","/run/","/mnt/","/media/*","/lost+found","/home/xcvd/rundata"} \
  $SOURCE_TARGET / 
 
 

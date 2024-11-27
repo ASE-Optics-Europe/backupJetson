@@ -70,7 +70,7 @@ esac
 # -A              preserve Access Control List (ACLs)
 
 sudo rsync -acvxAP --info=progress,stats2 --delete-before --numeric-ids \
---exclude={"/dev/","/proc/","/sys/","/tmp/","/run/","/mnt/","/media/*","/lost+found"} \
+--exclude={"/dev/","/proc/","/sys/","/tmp/","/run/","/mnt/","/media/*","/lost+found","/home/xcvd/rundata"} \
  / $FULL_BACKUP_FILENAME
 
 
